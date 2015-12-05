@@ -46,15 +46,14 @@
 <p>Provide an analytic report of 1,500 words or less that is structured as outlined below, utilizing the dataset.txt provided by Wells Fargo.</p>
 
 <h4>
-<a id="question-1-what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" class="anchor" href="#question-1-what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" aria-hidden="true"><span class="octicon octicon-link"></span></a>Question 1-<strong>What financial topics do consumers discuss on social media and what caused the consumers to post about this topic?</strong>
-</h4>
+<a id="question-1---what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" class="anchor" href="#question-1---what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Question 1</strong> - What financial topics do consumers discuss on social media and what caused the consumers to post about this topic?</h4>
 
 <h2>
-<a id="deliverable-a---describe-your-approach-and-methodology" class="anchor" href="#deliverable-a---describe-your-approach-and-methodology" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable A - Describe your Approach and Methodology.</strong>
-</h2>
+<a id="deliverable-a---describe-your-approach-and-methodology" class="anchor" href="#deliverable-a---describe-your-approach-and-methodology" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable A</strong> - Describe your Approach and Methodology.</h2>
 
 <h3>
-<a id="preparing-the-data" class="anchor" href="#preparing-the-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preparing the data</h3>
+<a id="preparing-the-data" class="anchor" href="#preparing-the-data" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Preparing the data</strong>
+</h3>
 
 <p>To obtain only the data that's useful out of the 220,377 observations, we upload the data set into the R program and proceed to pre-process the data. When uploaded in R, inspect the type of data dealt with, which in this competition is comments from facebook posts and tweets.  The pre-process consists of getting rid of unnecessary spaces, words, and facebook posts, or tweets. During this phase we select a sample size, in this case of 10,000 observations, to reduce the number of observations we have to work with while staying statistically sound for predictions.  </p>
 
@@ -63,6 +62,14 @@
 <p>After categorizing the csv's files into "relevant" and non-"relevant" to positive or negative comments, we can upload the csv's back to R and train on them for classification purposes. From here, many approaches can be applied, for example clustering approach. </p>
 
 <p><img src="https://raw.githubusercontent.com/jennsoto/wells_fargo_analytics/d37e7cb42a5749583d23ad164b0b4f3a91fe95cd/images/flow%20chart.png" alt="Flow Chart"></p>
+
+<h2>
+<a id="deliverable-b---discuss-the-data-and-its-relationship-to-social-conversation-drivers" class="anchor" href="#deliverable-b---discuss-the-data-and-its-relationship-to-social-conversation-drivers" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable B</strong> - Discuss the data and its relationship to social conversation drivers.</h2>
+
+<p>To find the social conversation drivers, indexed the data. After analysing the positive and negative comments we recognized conversation drivers like atm fee, customer service, Wells Fargo donation accounts, and account issues. The data provides an idea of how many banking conversations can be considered as social drivers. </p>
+
+<h2>
+<a id="deliverable-c---document-your-code-and-reference-the-analytic-process-flow-diagram-from-deliverable-a" class="anchor" href="#deliverable-c---document-your-code-and-reference-the-analytic-process-flow-diagram-from-deliverable-a" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable C</strong> - Document your code and reference the analytic process flow-diagram from deliverable A.</h2>
 
 <h4>
 <a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h4>
@@ -81,7 +88,7 @@ colnames(<span class="pl-smi">df.texts.clean</span>) <span class="pl-k">=</span>
 
 <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> <span class="pl-smi">df.texts.clean</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>
 
-<span class="pl-c"># If you want to test on just 10000 records using df.10000 created below</span>
+<span class="pl-c"># To test on 10000 samples using df.10000</span>
 <span class="pl-v">idx.10000</span> <span class="pl-k">=</span> sample(<span class="pl-c1">1</span><span class="pl-k">:</span>nrow(<span class="pl-smi">df</span>),<span class="pl-c1">10000</span>)
 <span class="pl-v">df.10000</span> <span class="pl-k">=</span> <span class="pl-smi">df</span>[<span class="pl-smi">idx.10000</span>,]
 
@@ -101,12 +108,161 @@ library(<span class="pl-smi">tm</span>)
 <span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>, stopwords(<span class="pl-v">kind</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>SMART<span class="pl-pds">"</span></span>))
 
 save.image(<span class="pl-s"><span class="pl-pds">'</span>docs.preprocessed.Rda<span class="pl-pds">'</span></span>)
-load(<span class="pl-s"><span class="pl-pds">'</span>docs.preprocessed.Rda<span class="pl-pds">'</span></span>)</pre></div>
+load(<span class="pl-s"><span class="pl-pds">'</span>docs.preprocessed.Rda<span class="pl-pds">'</span></span>)
 
-<h3>
-<a id="welcome-to-github-page" class="anchor" href="#welcome-to-github-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Page</h3>
+<span class="pl-c"># Documents containing each bank</span>
+<span class="pl-v">bankA.idx</span> <span class="pl-k">=</span> which(sapply(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>BankA<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+<span class="pl-v">bankB.idx</span> <span class="pl-k">=</span> which(sapply(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>BankB<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+<span class="pl-v">bankC.idx</span> <span class="pl-k">=</span> which(sapply(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>BankC<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
+<span class="pl-v">bankD.idx</span> <span class="pl-k">=</span> which(sapply(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>,<span class="pl-k">function</span>(<span class="pl-smi">x</span>) grepl(<span class="pl-s"><span class="pl-pds">"</span>BankD<span class="pl-pds">"</span></span>,<span class="pl-smi">x</span>)))
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">BankID</span> <span class="pl-k">=</span> vector(<span class="pl-v">mode</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>numeric<span class="pl-pds">"</span></span>, <span class="pl-v">length</span> <span class="pl-k">=</span> nrow(<span class="pl-smi">df</span>))
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">BankID</span>[<span class="pl-smi">bankA.idx</span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BankA<span class="pl-pds">"</span></span>
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">BankID</span>[<span class="pl-smi">bankB.idx</span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BankB<span class="pl-pds">"</span></span>
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">BankID</span>[<span class="pl-smi">bankC.idx</span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BankC<span class="pl-pds">"</span></span>
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">BankID</span>[<span class="pl-smi">bankD.idx</span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>BankD<span class="pl-pds">"</span></span>
+
+<span class="pl-v">bankA.docs</span> <span class="pl-k">=</span> <span class="pl-smi">docs</span>[<span class="pl-smi">bankA.idx</span>]
+<span class="pl-v">bankB.docs</span> <span class="pl-k">=</span> <span class="pl-smi">docs</span>[<span class="pl-smi">bankB.idx</span>]
+<span class="pl-v">bankC.docs</span> <span class="pl-k">=</span> <span class="pl-smi">docs</span>[<span class="pl-smi">bankC.idx</span>]
+<span class="pl-v">bankD.docs</span> <span class="pl-k">=</span> <span class="pl-smi">docs</span>[<span class="pl-smi">bankD.idx</span>]
+
+summary(<span class="pl-smi">docs</span>)
+
+<span class="pl-c">## Repeat these processes for every bank</span>
+<span class="pl-c">## Create document term matrix</span>
+<span class="pl-smi">dtm</span> <span class="pl-k">&lt;-</span> DocumentTermMatrix(<span class="pl-smi">docs</span>[<span class="pl-smi">bankA.idx</span>])
+
+<span class="pl-c">## Transpose this matrix</span>
+<span class="pl-smi">tdm</span> <span class="pl-k">&lt;-</span> TermDocumentMatrix(<span class="pl-smi">docs</span>[<span class="pl-smi">bankA.idx</span>])
+
+<span class="pl-c">## Remove sparse terms</span>
+<span class="pl-v">dtm</span> <span class="pl-k">=</span> removeSparseTerms(<span class="pl-smi">dtm</span>, <span class="pl-c1">0.98</span>)
+
+<span class="pl-c">## Organize terms by frequency</span>
+findFreqTerms(<span class="pl-smi">dtm</span>,<span class="pl-c1">50</span>)
+<span class="pl-smi">freq</span> <span class="pl-k">&lt;-</span> colSums(as.matrix(<span class="pl-smi">dtm</span>))  
+<span class="pl-smi">ord</span> <span class="pl-k">&lt;-</span> order(<span class="pl-smi">freq</span>)   
+<span class="pl-smi">freq</span>[head(<span class="pl-smi">ord</span>)]  
+<span class="pl-smi">freq</span>[tail(<span class="pl-smi">ord</span>)]
+
+<span class="pl-smi">wf</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">word</span><span class="pl-k">=</span>names(<span class="pl-smi">freq</span>), <span class="pl-v">freq</span><span class="pl-k">=</span><span class="pl-smi">freq</span>)   
+head(<span class="pl-smi">wf</span>)
+
+<span class="pl-c">## Plot word frequencies</span>
+library(<span class="pl-smi">ggplot2</span>)   
+<span class="pl-smi">p</span> <span class="pl-k">&lt;-</span> ggplot(subset(<span class="pl-smi">wf</span>, <span class="pl-smi">freq</span><span class="pl-k">&gt;</span><span class="pl-c1">100</span>), aes(<span class="pl-smi">word</span>, <span class="pl-smi">freq</span>))    
+<span class="pl-smi">p</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">p</span> <span class="pl-k">+</span> geom_bar(<span class="pl-v">stat</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>identity<span class="pl-pds">"</span></span>)   
+<span class="pl-smi">p</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">p</span> <span class="pl-k">+</span> theme(<span class="pl-v">axis.text.x</span><span class="pl-k">=</span>element_text(<span class="pl-v">angle</span><span class="pl-k">=</span><span class="pl-c1">45</span>, <span class="pl-v">hjust</span><span class="pl-k">=</span><span class="pl-c1">1</span>))   
+<span class="pl-smi">p</span>
+
+<span class="pl-c">## To get a word cloud of the 100 most frequent words </span>
+library(<span class="pl-smi">wordcloud</span>)
+set.seed(<span class="pl-c1">142</span>)   
+<span class="pl-smi">dark2</span> <span class="pl-k">&lt;-</span> brewer.pal(<span class="pl-c1">6</span>, <span class="pl-s"><span class="pl-pds">"</span>Dark2<span class="pl-pds">"</span></span>)   
+wordcloud(names(<span class="pl-smi">freq</span>), <span class="pl-smi">freq</span>, <span class="pl-v">max.words</span><span class="pl-k">=</span><span class="pl-c1">25</span>, <span class="pl-v">rot.per</span><span class="pl-k">=</span><span class="pl-c1">0.2</span>, <span class="pl-v">colors</span><span class="pl-k">=</span><span class="pl-smi">dark2</span>)
+
+<span class="pl-c"># Sentiment analysis</span>
+<span class="pl-smi">pos</span> <span class="pl-k">&lt;-</span> scan(<span class="pl-s"><span class="pl-pds">'</span>positive-words.txt<span class="pl-pds">'</span></span>,<span class="pl-v">what</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>character<span class="pl-pds">'</span></span>,<span class="pl-v">comment.char</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>;<span class="pl-pds">'</span></span>)
+<span class="pl-smi">neg</span> <span class="pl-k">&lt;-</span> scan(<span class="pl-s"><span class="pl-pds">'</span>negative-words.txt<span class="pl-pds">'</span></span>,<span class="pl-v">what</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>character<span class="pl-pds">'</span></span>,<span class="pl-v">comment.char</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>;<span class="pl-pds">'</span></span>)
+
+<span class="pl-v">score.sentiment</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">sentences</span>, <span class="pl-smi">pos.words</span>, <span class="pl-smi">neg.words</span>, <span class="pl-v">.progress</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>none<span class="pl-pds">'</span></span>)
+{
+  require(<span class="pl-smi">plyr</span>)
+  require(<span class="pl-smi">stringr</span>)
+
+  <span class="pl-v">scores</span> <span class="pl-k">=</span> laply(<span class="pl-smi">sentences</span>, <span class="pl-k">function</span>(<span class="pl-smi">sentence</span>, <span class="pl-smi">pos.words</span>, <span class="pl-smi">neg.words</span>) {
+
+    <span class="pl-c"># Clean up sentences with R's regex-driven global substitute, gsub():</span>
+    <span class="pl-v">sentence</span> <span class="pl-k">=</span> gsub(<span class="pl-s"><span class="pl-pds">'</span>[[:punct:]]<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>, <span class="pl-smi">sentence</span>)
+    <span class="pl-v">sentence</span> <span class="pl-k">=</span> gsub(<span class="pl-s"><span class="pl-pds">'</span>[[:cntrl:]]<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>, <span class="pl-smi">sentence</span>)
+    <span class="pl-v">sentence</span> <span class="pl-k">=</span> gsub(<span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\\</span>d+<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>, <span class="pl-smi">sentence</span>)
+    <span class="pl-v">sentence</span> <span class="pl-k">=</span> tolower(<span class="pl-smi">sentence</span>)
+
+    <span class="pl-c"># Split into words. You need the stringr package</span>
+    <span class="pl-v">word.list</span> <span class="pl-k">=</span> str_split(<span class="pl-smi">sentence</span>, <span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\\</span>s+<span class="pl-pds">'</span></span>)
+    <span class="pl-c"># Sometimes a list() is one level of hierarchy too much</span>
+    <span class="pl-v">words</span> <span class="pl-k">=</span> unlist(<span class="pl-smi">word.list</span>)
+
+    <span class="pl-c"># Compare words to positive &amp; negative terms</span>
+    <span class="pl-v">pos.matches</span> <span class="pl-k">=</span> match(<span class="pl-smi">words</span>, <span class="pl-smi">pos.words</span>)
+    <span class="pl-v">neg.matches</span> <span class="pl-k">=</span> match(<span class="pl-smi">words</span>, <span class="pl-smi">neg.words</span>)
+
+    <span class="pl-c"># match() returns the position of the matched term or NA</span>
+    <span class="pl-v">pos.matches</span> <span class="pl-k">=</span> <span class="pl-k">!</span>is.na(<span class="pl-smi">pos.matches</span>)
+    <span class="pl-v">neg.matches</span> <span class="pl-k">=</span> <span class="pl-k">!</span>is.na(<span class="pl-smi">neg.matches</span>)
+
+    <span class="pl-c"># TRUE/FALSE will be treated as 1/0 by sum():</span>
+    <span class="pl-v">score</span> <span class="pl-k">=</span> sum(<span class="pl-smi">pos.matches</span>) <span class="pl-k">-</span> sum(<span class="pl-smi">neg.matches</span>)
+
+    <span class="pl-k">return</span>(<span class="pl-smi">score</span>)
+  }, <span class="pl-smi">pos.words</span>, <span class="pl-smi">neg.words</span>, <span class="pl-v">.progress</span><span class="pl-k">=</span>.<span class="pl-smi">progress</span> )
+
+  <span class="pl-v">scores.df</span> <span class="pl-k">=</span> <span class="pl-k">data.frame</span>(<span class="pl-v">score</span><span class="pl-k">=</span><span class="pl-smi">scores</span>, <span class="pl-v">text</span><span class="pl-k">=</span><span class="pl-smi">sentences</span>)
+  <span class="pl-k">return</span>(<span class="pl-smi">scores.df</span>)
+}
+
+<span class="pl-c"># Very positive and negative</span>
+<span class="pl-v">df.sentiment</span> <span class="pl-k">=</span> <span class="pl-smi">df</span>[<span class="pl-smi">bankA.idx</span>,]
+
+<span class="pl-v">scores</span> <span class="pl-k">=</span> score.sentiment(<span class="pl-smi">df.sentiment</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>, <span class="pl-smi">pos</span>, <span class="pl-smi">neg</span>, <span class="pl-v">.progress</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>text<span class="pl-pds">'</span></span>)
+<span class="pl-smi">scores</span><span class="pl-k">$</span><span class="pl-v">very.pos</span> <span class="pl-k">=</span> as.numeric(<span class="pl-smi">scores</span><span class="pl-k">$</span><span class="pl-smi">score</span> <span class="pl-k">&gt;</span><span class="pl-k">=</span> <span class="pl-c1">2</span>)
+<span class="pl-smi">scores</span><span class="pl-k">$</span><span class="pl-v">very.neg</span> <span class="pl-k">=</span> as.numeric(<span class="pl-smi">scores</span><span class="pl-k">$</span><span class="pl-smi">score</span> <span class="pl-k">&lt;</span><span class="pl-k">=</span> <span class="pl-k">-</span><span class="pl-c1">2</span>)
+
+<span class="pl-v">pos.tweets</span> <span class="pl-k">=</span> which(<span class="pl-smi">scores</span><span class="pl-k">$</span><span class="pl-smi">very.pos</span> <span class="pl-k">==</span> <span class="pl-c1">1</span>)
+<span class="pl-v">neg.tweets</span> <span class="pl-k">=</span> which(<span class="pl-smi">scores</span><span class="pl-k">$</span><span class="pl-smi">very.neg</span> <span class="pl-k">==</span> <span class="pl-c1">1</span>)
+write.csv(<span class="pl-smi">df.sentiment</span>[<span class="pl-smi">pos.tweets</span>,],<span class="pl-v">file</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>pos.texts.csv<span class="pl-pds">'</span></span>)<span class="pl-c">##creates positive</span>
+write.csv(<span class="pl-smi">df.sentiment</span>[<span class="pl-smi">neg.tweets</span>,],<span class="pl-v">file</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>neg.texts.csv<span class="pl-pds">'</span></span>)<span class="pl-c">##creates negative</span>
+
+<span class="pl-c"># Creating a Classifier</span>
+<span class="pl-c">#df = read.table('dataset.txt',sep="|",header=T)</span>
+load(<span class="pl-s"><span class="pl-pds">'</span>df.Rda<span class="pl-pds">'</span></span>)
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> as.character(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>)
+<span class="pl-v">pos.texts</span> <span class="pl-k">=</span> read.csv(<span class="pl-s"><span class="pl-pds">'</span>pos.texts.csv<span class="pl-pds">'</span></span>,<span class="pl-v">header</span><span class="pl-k">=</span><span class="pl-c1">T</span>)
+<span class="pl-smi">pos.texts</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> as.character(<span class="pl-smi">pos.texts</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>)
+colnames(<span class="pl-smi">pos.texts</span>)
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> Corpus(DataframeSource(as.data.frame(<span class="pl-smi">pos.texts</span>[,<span class="pl-c1">9</span>])))   
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">PlainTextDocument</span>)
+
+<span class="pl-smi">dtm</span> <span class="pl-k">&lt;-</span> DocumentTermMatrix(<span class="pl-smi">docs</span>)
+
+<span class="pl-smi">tdm</span> <span class="pl-k">&lt;-</span> TermDocumentMatrix(<span class="pl-smi">docs</span>)
+
+<span class="pl-v">m</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">dtm</span>)
+
+<span class="pl-v">df.classification</span> <span class="pl-k">=</span> as.data.frame(<span class="pl-smi">m</span>) <span class="pl-c">#dataframe</span>
+<span class="pl-smi">df.classification</span><span class="pl-k">$</span><span class="pl-v">Relevant</span> <span class="pl-k">=</span> <span class="pl-smi">pos.texts</span><span class="pl-k">$</span><span class="pl-smi">Relevant</span>
+<span class="pl-smi">df.classification</span><span class="pl-k">$</span><span class="pl-smi">Relevant</span>
+
+<span class="pl-c"># Grow a tree</span>
+library(<span class="pl-smi">rpart</span>)
+<span class="pl-smi">fit</span> <span class="pl-k">&lt;-</span> rpart(<span class="pl-smi">Relevant</span> <span class="pl-k">~</span>., <span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">df.classification</span>)
+library(<span class="pl-smi">rpart.plot</span>)         
+prp(<span class="pl-smi">fit</span>)
+
+<span class="pl-c">########### Clustering approach</span>
+<span class="pl-v">dtm</span> <span class="pl-k">=</span> DocumentTermMatrix(<span class="pl-smi">docs</span>)
+<span class="pl-v">dtm</span> <span class="pl-k">=</span> removeSparseTerms(<span class="pl-smi">dtm</span>, <span class="pl-c1">0.98</span>)
+<span class="pl-v">bag.of.words</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">dtm</span>)
+<span class="pl-smi">dtm</span>
+
+<span class="pl-v">hc</span> <span class="pl-k">=</span> hclust(dist(<span class="pl-smi">bag.of.words</span>))
+<span class="pl-v">hcd</span> <span class="pl-k">=</span> as.dendrogram(<span class="pl-smi">hc</span>)
+<span class="pl-v">g246</span> <span class="pl-k">=</span> cutree(<span class="pl-smi">hc</span>, <span class="pl-v">k</span><span class="pl-k">=</span>c(<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">6</span>,<span class="pl-c1">20</span>))
+<span class="pl-v">group.idxs</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
+<span class="pl-v">n.groups</span> <span class="pl-k">=</span> <span class="pl-c1">20</span>
+<span class="pl-v">dtms</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
+<span class="pl-v">dtms.matrcies</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
+<span class="pl-k">for</span> (<span class="pl-smi">i</span> <span class="pl-k">in</span> <span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-smi">n.groups</span>) {
+  <span class="pl-smi">group.idxs</span>[[<span class="pl-smi">i</span>]] <span class="pl-k">=</span> which(<span class="pl-smi">g246</span>[,<span class="pl-s"><span class="pl-pds">"</span>20<span class="pl-pds">"</span></span>]<span class="pl-k">==</span><span class="pl-smi">i</span>)
+  <span class="pl-smi">dtms</span>[[<span class="pl-smi">i</span>]] <span class="pl-k">=</span> DocumentTermMatrix(<span class="pl-smi">docs</span>[<span class="pl-smi">group.idxs</span>[[<span class="pl-smi">i</span>]]])
+  <span class="pl-v">dtm.matrix</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">dtms</span>[[<span class="pl-smi">i</span>]])
+  print(paste0(<span class="pl-s"><span class="pl-pds">'</span>Group,i<span class="pl-pds">'</span></span>))
+  <span class="pl-v">frequency</span> <span class="pl-k">=</span> colSums(<span class="pl-smi">dtm.matrix</span>)
+  <span class="pl-v">frequency</span> <span class="pl-k">=</span> sort(<span class="pl-smi">frequency</span>, <span class="pl-v">decreasing</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
+  print(head(<span class="pl-smi">frequency</span>))
+}
+<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span><span class="pl-pds">'</span></span></pre></div>
       </section>
     </div>
 
