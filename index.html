@@ -32,20 +32,70 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h1>
+<a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>About</strong>
+</h1>
 
 <p>Welcome! I'm Jeniffer Soto, student of DATA 101 from the College of Charleston. This space is dedicated to provide information about the Wells Fargo Analytics competition. Feel free to navigate the following sections, which provide related information on the Deliverables. If you have any questions, please contact me at <a href="mailto:sotoperezj@g.cofc.edu">sotoperezj@g.cofc.edu</a></p>
 
 <h1>
-<a id="preparing-the-data" class="anchor" href="#preparing-the-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preparing the data</h1>
+<a id="challenge" class="anchor" href="#challenge" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Challenge</strong>
+</h1>
 
-<p>To obtain only the data that's useful out of the 220,377 observations, we upload the data set into the R program and proceed to pre-process the data. The pre-process consists of getting rid of unnecessary space, words, and facebook posts, or tweets. During this phase we selected a sample size of 10000 facebook posts and tweets.</p>
+<p>Dialogues on social media can provide tremendous insight into the behaviors, desires, pains, and thoughts of consumers. We'd like your help in developing a repeatable process that identifies, classifies, and extracts the underlying drivers of consumer financial conversations and comments in social media data. </p>
+
+<p>Provide an analytic report of 1,500 words or less that is structured as outlined below, utilizing the dataset.txt provided by Wells Fargo.</p>
 
 <h1>
-<a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h1>
+<a id="what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" class="anchor" href="#what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>What financial topics* do consumers discuss on social media and what caused the consumers to post about this topic?</strong>
+</h1>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">a</span> <span class="pl-k">&lt;-</span> <span class="pl-c1">1</span>
-library(<span class="pl-smi">rpart</span>)</pre></div>
+<h2>
+<a id="deliverable-a---describe-your-approach-and-methodology" class="anchor" href="#deliverable-a---describe-your-approach-and-methodology" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable A - Describe your Approach and Methodology.</strong>
+</h2>
+
+<h2>
+<a id="preparing-the-data" class="anchor" href="#preparing-the-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preparing the data</h2>
+
+<p>To obtain only the data that's useful out of the 220,377 observations, we upload the data set into the R program and proceed to pre-process the data. When uploaded in R, inspect the type of data dealt with, which in this competition is comments from facebook posts and tweets.  The pre-process consists of getting rid of unnecessary spaces, words, and facebook posts, or tweets. During this phase we select a sample size, in this case of 10,000 observations, to reduce the number of observations we have to work with while staying statistically sound for predictions.  </p>
+
+<h3>
+<a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h3>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Load data set, in my case ('df.Rda')</span>
+load(<span class="pl-s"><span class="pl-pds">"</span>/Users/Jenn/Desktop/Analytic_Competition/df.Rda<span class="pl-pds">"</span></span>)
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> as.character(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>)
+
+<span class="pl-c"># Grab just the texts, so you can load them in the Corpus</span>
+<span class="pl-v">df.texts</span> <span class="pl-k">=</span> as.data.frame(<span class="pl-smi">df</span>[,ncol(<span class="pl-smi">df</span>)])
+colnames(<span class="pl-smi">df.texts</span>) <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>FullText<span class="pl-pds">'</span></span>
+
+<span class="pl-c"># Remove non-ascii characters</span>
+<span class="pl-v">df.texts.clean</span> <span class="pl-k">=</span> as.data.frame(iconv(<span class="pl-smi">df.texts</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>, <span class="pl-s"><span class="pl-pds">"</span>latin1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ASCII<span class="pl-pds">"</span></span>, <span class="pl-v">sub</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>))
+colnames(<span class="pl-smi">df.texts.clean</span>) <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>FullText<span class="pl-pds">'</span></span>
+
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> <span class="pl-smi">df.texts.clean</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>
+
+<span class="pl-c"># If you want to test on just 10000 records using df.10000 created below</span>
+<span class="pl-v">idx.10000</span> <span class="pl-k">=</span> sample(<span class="pl-c1">1</span><span class="pl-k">:</span>nrow(<span class="pl-smi">df</span>),<span class="pl-c1">10000</span>)
+<span class="pl-v">df.10000</span> <span class="pl-k">=</span> <span class="pl-smi">df</span>[<span class="pl-smi">idx.10000</span>,]
+
+<span class="pl-v">df.entire</span> <span class="pl-k">=</span> <span class="pl-smi">df</span>
+<span class="pl-v">df</span> <span class="pl-k">=</span> <span class="pl-smi">df.10000</span>
+
+<span class="pl-c"># Load in corpus form using the tm library</span>
+library(<span class="pl-smi">tm</span>) 
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> Corpus(DataframeSource(as.data.frame(<span class="pl-smi">df</span>[,<span class="pl-c1">6</span>])))   
+
+<span class="pl-c"># Perform pre-processing</span>
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">PlainTextDocument</span>)
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removePunctuation</span>)
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">stripWhitespace</span>)
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>,c(<span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>and<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>for<span class="pl-pds">"</span></span>)) 
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>, stopwords(<span class="pl-s"><span class="pl-pds">"</span>english<span class="pl-pds">"</span></span>))
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>, stopwords(<span class="pl-v">kind</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>SMART<span class="pl-pds">"</span></span>))
+
+save.image(<span class="pl-s"><span class="pl-pds">'</span>docs.preprocessed.Rda<span class="pl-pds">'</span></span>)
+load(<span class="pl-s"><span class="pl-pds">'</span>docs.preprocessed.Rda<span class="pl-pds">'</span></span>)</pre></div>
 
 <h3>
 <a id="welcome-to-github-page" class="anchor" href="#welcome-to-github-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Page</h3>
