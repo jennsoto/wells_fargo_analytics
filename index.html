@@ -215,7 +215,6 @@ write.csv(<span class="pl-smi">df.sentiment</span>[<span class="pl-smi">pos.twee
 write.csv(<span class="pl-smi">df.sentiment</span>[<span class="pl-smi">neg.tweets</span>,],<span class="pl-v">file</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>neg.texts.csv<span class="pl-pds">'</span></span>)<span class="pl-c">##creates negative</span>
 
 <span class="pl-c"># Creating a Classifier</span>
-<span class="pl-c">#df = read.table('dataset.txt',sep="|",header=T)</span>
 load(<span class="pl-s"><span class="pl-pds">'</span>df.Rda<span class="pl-pds">'</span></span>)
 <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> as.character(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>)
 <span class="pl-v">pos.texts</span> <span class="pl-k">=</span> read.csv(<span class="pl-s"><span class="pl-pds">'</span>pos.texts.csv<span class="pl-pds">'</span></span>,<span class="pl-v">header</span><span class="pl-k">=</span><span class="pl-c1">T</span>)
@@ -261,8 +260,34 @@ prp(<span class="pl-smi">fit</span>)
   <span class="pl-v">frequency</span> <span class="pl-k">=</span> colSums(<span class="pl-smi">dtm.matrix</span>)
   <span class="pl-v">frequency</span> <span class="pl-k">=</span> sort(<span class="pl-smi">frequency</span>, <span class="pl-v">decreasing</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
   print(head(<span class="pl-smi">frequency</span>))
-}
-<span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span><span class="pl-pds">'</span></span></pre></div>
+}</pre></div>
+
+<h4>
+<a id="question-2---are-the-topics-and-substance-consistent-across-the-industry-or-are-they-isolated-to-individual-banks" class="anchor" href="#question-2---are-the-topics-and-substance-consistent-across-the-industry-or-are-they-isolated-to-individual-banks" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Question #2</strong> - Are the topics and “substance” consistent across the industry or are they isolated to individual banks?</h4>
+
+<h2>
+<a id="deliverable-d----create-a-list-of-topics-and-substance-you-found" class="anchor" href="#deliverable-d----create-a-list-of-topics-and-substance-you-found" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable D</strong> -  Create a list of topics and substance you found.</h2>
+
+<h4>
+<a id="topics" class="anchor" href="#topics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Topics:</h4>
+
+<ul>
+<li>Account</li>
+<li>Check</li>
+<li>Customer Service </li>
+<li>Credit</li>
+<li>Grants </li>
+<li>Management</li>
+<li>ATM</li>
+<li>Phone Calls
+####Substance:</li>
+<li>Customer Attrition — Likes customer service/dislikes customer service</li>
+</ul>
+
+<h2>
+<a id="deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" class="anchor" href="#deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable E</strong> - Create a narrative of insights supported by the quantitative results (should include graphs or charts)</h2>
+
+<p>According to the classification tree results, when banks are acknowledge for their service they receive positive statements within a .5 relevancy. </p>
       </section>
     </div>
 
