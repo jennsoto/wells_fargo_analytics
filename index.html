@@ -270,6 +270,25 @@ printcp(<span class="pl-smi">fit</span>) <span class="pl-c"># display the result
 plotcp(<span class="pl-smi">fit</span>) <span class="pl-c"># visualize cross-validation results </span>
 summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary of splits</span>
 
+<span class="pl-c">## Cluster Dendrogram</span>
+<span class="pl-c"># Useless words</span>
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>,c(<span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>and<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>for<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>this<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>are<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>from<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>just<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>get<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ret_twit<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>name_resp<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>twit_hndl<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>twit_handl:<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>twit_hndl_banka<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>ly/<span class="pl-pds">"</span></span>)) 
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>, stopwords(<span class="pl-s"><span class="pl-pds">"</span>english<span class="pl-pds">"</span></span>))
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>, stopwords(<span class="pl-v">kind</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>SMART<span class="pl-pds">"</span></span>))
+
+<span class="pl-smi">dtm</span> <span class="pl-k">&lt;-</span> DocumentTermMatrix(<span class="pl-smi">docs</span>)
+<span class="pl-smi">tdm</span> <span class="pl-k">&lt;-</span> TermDocumentMatrix(<span class="pl-smi">docs</span>)
+
+<span class="pl-c"># remove sparse terms</span>
+<span class="pl-smi">tdm2</span> <span class="pl-k">&lt;-</span> removeSparseTerms(<span class="pl-smi">tdm</span>, <span class="pl-v">sparse</span> <span class="pl-k">=</span> <span class="pl-c1">0.97</span>)
+<span class="pl-smi">m2</span> <span class="pl-k">&lt;-</span> as.matrix(<span class="pl-smi">tdm2</span>)
+<span class="pl-c"># cluster terms</span>
+<span class="pl-smi">distMatrix</span> <span class="pl-k">&lt;-</span> dist(scale(<span class="pl-smi">m2</span>))
+<span class="pl-smi">fit</span> <span class="pl-k">&lt;-</span> hclust(<span class="pl-smi">distMatrix</span>, <span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>ward.D<span class="pl-pds">"</span></span>)
+
+plot(<span class="pl-smi">fit</span>)
+rect.hclust(<span class="pl-smi">fit</span>, <span class="pl-v">k</span> <span class="pl-k">=</span> <span class="pl-c1">6</span>)
+
 <span class="pl-c">##############</span></pre></div>
 
 <h4>
