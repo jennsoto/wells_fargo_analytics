@@ -55,9 +55,9 @@
 <a id="preparing-the-data" class="anchor" href="#preparing-the-data" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Preparing the data</strong>
 </h3>
 
-<p>To obtain only the data that's useful out of the 220,377 observations, we upload the data set into the R program and proceed to pre-process the data. When uploaded in R, inspect the type of data dealt with, which in this competition is comments from facebook posts and tweets.  The pre-process consists of getting rid of unnecessary spaces, words, and facebook posts, or tweets. During this phase we select a sample size, in this case of 10,000 observations, to reduce the number of observations we have to work with while staying statistically sound for predictions.  </p>
+<p>To obtain only the data that's useful out of the 220,377 observations, we upload the data set into the R program and proceed to pre-process the data. When uploaded in R, we inspected the type of data dealt with, which in this competition is comments from facebook posts, and tweets.  The pre-process consists of getting rid of unnecessary spaces, words, and facebook posts, or tweets. During this phase we selected a sample size of 10,000 observations to reduce the number of observations we have to work with when categorizing the comments as relevant or non-relevant.  </p>
 
-<p>The team indexed each bank as, BankA, BankB, Bank C, and Bank D. Then we tested the data to find positive and negative sentiment words as well as high frequency words. From these, we can have an idea of the main topics mentioned. The results can be downloaded as an excel file during this step. In this case the excel files created were positive.txt.csv and negative.txt.csv.</p>
+<p>The team indexed each bank as, BankA, BankB, Bank C, and Bank D. Then we tested the data to find positive and negative sentiment words as well as high frequency words. From these, we can have an idea of the main topics mentioned. The results can be downloaded as an excel file during this step. For this competition, the excel files created were positive.txt.csv and negative.txt.csv.</p>
 
 <p>After categorizing the csv's files into "relevant" and non-"relevant" to positive or negative comments, we can upload the csv's back to R and train on them for classification purposes. From here, many approaches can be applied, for example clustering approach. </p>
 
@@ -215,7 +215,7 @@ wordcloud(names(<span class="pl-smi">freq</span>), <span class="pl-smi">freq</sp
 write.csv(<span class="pl-smi">df.sentiment</span>[<span class="pl-smi">pos.tweets</span>,],<span class="pl-v">file</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>pos.texts.csv<span class="pl-pds">'</span></span>)<span class="pl-c">##creates positive</span>
 write.csv(<span class="pl-smi">df.sentiment</span>[<span class="pl-smi">neg.tweets</span>,],<span class="pl-v">file</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>neg.texts.csv<span class="pl-pds">'</span></span>)<span class="pl-c">##creates negative</span>
 
-<span class="pl-c"># Creating a Classifier</span>
+<span class="pl-c"># Creating a classifier for pos.texts</span>
 load(<span class="pl-s"><span class="pl-pds">'</span>df.Rda<span class="pl-pds">'</span></span>)
 <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> as.character(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>)
 <span class="pl-v">pos.texts</span> <span class="pl-k">=</span> read.csv(<span class="pl-s"><span class="pl-pds">'</span>pos.texts.csv<span class="pl-pds">'</span></span>,<span class="pl-v">header</span><span class="pl-k">=</span><span class="pl-c1">T</span>)
@@ -236,8 +236,34 @@ colnames(<span class="pl-smi">pos.texts</span>)
 
 <span class="pl-c"># Grow a tree</span>
 library(<span class="pl-smi">rpart</span>)
-<span class="pl-smi">fit</span><span class="pl-k">&lt;-</span>rpart(<span class="pl-smi">Relevant</span> <span class="pl-k">~</span> <span class="pl-smi">X</span> <span class="pl-k">+</span> <span class="pl-smi">AutoID</span> <span class="pl-k">+</span> <span class="pl-smi">Date</span> <span class="pl-k">+</span> <span class="pl-smi">Year</span> <span class="pl-k">+</span> <span class="pl-smi">Month</span> <span class="pl-k">+</span> <span class="pl-smi">MediaType</span> <span class="pl-k">+</span> <span class="pl-smi">FullText</span>  
-           <span class="pl-k">+</span> <span class="pl-smi">BankID</span>, <span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">pos.texts</span>, <span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>)
+<span class="pl-smi">fit</span><span class="pl-k">&lt;-</span>rpart(<span class="pl-smi">Relevant</span> <span class="pl-k">~</span> <span class="pl-smi">FullText</span> <span class="pl-k">+</span> <span class="pl-smi">BankID</span>, <span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">pos.texts</span>, <span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>)
+printcp(<span class="pl-smi">fit</span>) <span class="pl-c"># display the results </span>
+plotcp(<span class="pl-smi">fit</span>) <span class="pl-c"># visualize cross-validation results </span>
+summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary of splits</span>
+
+<span class="pl-c"># Creating a classifier for neg.texts</span>
+load(<span class="pl-s"><span class="pl-pds">'</span>df.Rda<span class="pl-pds">'</span></span>)
+<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> as.character(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>)
+<span class="pl-v">neg.texts</span> <span class="pl-k">=</span> read.csv(<span class="pl-s"><span class="pl-pds">'</span>neg.texts.csv<span class="pl-pds">'</span></span>,<span class="pl-v">header</span><span class="pl-k">=</span><span class="pl-c1">T</span>)
+<span class="pl-smi">neg.texts</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> as.character(<span class="pl-smi">neg.texts.texts</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>)
+colnames(<span class="pl-smi">neg.texts</span>)
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> Corpus(DataframeSource(as.data.frame(<span class="pl-smi">neg.texts</span>[,<span class="pl-c1">9</span>])))   
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">PlainTextDocument</span>)
+
+<span class="pl-smi">dtm</span> <span class="pl-k">&lt;-</span> DocumentTermMatrix(<span class="pl-smi">docs</span>)
+
+<span class="pl-smi">tdm</span> <span class="pl-k">&lt;-</span> TermDocumentMatrix(<span class="pl-smi">docs</span>)
+
+<span class="pl-v">m</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">dtm</span>)
+
+<span class="pl-v">df.classification</span> <span class="pl-k">=</span> as.data.frame(<span class="pl-smi">m</span>) <span class="pl-c">#dataframe</span>
+<span class="pl-smi">df.classification</span><span class="pl-k">$</span><span class="pl-v">Relevant</span> <span class="pl-k">=</span> <span class="pl-smi">neg.texts</span><span class="pl-k">$</span><span class="pl-smi">Relevant</span>
+<span class="pl-smi">df.classification</span><span class="pl-k">$</span><span class="pl-smi">Relevant</span>
+colnames(<span class="pl-smi">neg.texts</span>)
+
+<span class="pl-c"># Grow a tree</span>
+library(<span class="pl-smi">rpart</span>)
+<span class="pl-smi">fit</span><span class="pl-k">&lt;-</span>rpart(<span class="pl-smi">Relevant</span> <span class="pl-k">~</span> <span class="pl-smi">FullText</span> <span class="pl-k">+</span> <span class="pl-smi">BankID</span>, <span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">neg.texts</span>, <span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>)
 printcp(<span class="pl-smi">fit</span>) <span class="pl-c"># display the results </span>
 plotcp(<span class="pl-smi">fit</span>) <span class="pl-c"># visualize cross-validation results </span>
 summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary of splits</span>
@@ -263,7 +289,9 @@ summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary o
   <span class="pl-v">frequency</span> <span class="pl-k">=</span> colSums(<span class="pl-smi">dtm.matrix</span>)
   <span class="pl-v">frequency</span> <span class="pl-k">=</span> sort(<span class="pl-smi">frequency</span>, <span class="pl-v">decreasing</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
   print(head(<span class="pl-smi">frequency</span>))
-}</pre></div>
+}
+
+<span class="pl-c">##############</span></pre></div>
 
 <h4>
 <a id="question-2---are-the-topics-and-substance-consistent-across-the-industry-or-are-they-isolated-to-individual-banks" class="anchor" href="#question-2---are-the-topics-and-substance-consistent-across-the-industry-or-are-they-isolated-to-individual-banks" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Question #2</strong> - Are the topics and “substance” consistent across the industry or are they isolated to individual banks?</h4>
@@ -292,6 +320,8 @@ summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary o
 <li>Customer Attrition — Likes customer service/dislikes customer service</li>
 </ul>
 
+<p>In general, the topics and substance are consistent across the banking industry.</p>
+
 <h3>
 <a id="deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" class="anchor" href="#deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable E</strong> - Create a narrative of insights supported by the quantitative results (should include graphs or charts).</h3>
 
@@ -304,7 +334,24 @@ summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary o
 
 <p>The most frequent words obtained served as a guide to understand what subjects customers are talking about. According to our results, customers are commenting about online services, phone calls, customer service, and bank accounts. </p>
 
-<p>According to the classification tree results, positive statements within a .5 relevancy are "thanks," "very," "service," "support," "love," and "thank." With more work on the csv's files, we could utilize this method to obtain only the positive or negative comments.</p>
+<h4>
+<a id="classification-tree" class="anchor" href="#classification-tree" aria-hidden="true"><span class="octicon octicon-link"></span></a>Classification Tree</h4>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Output</span>
+<span class="pl-smi">Node</span> <span class="pl-smi">number</span> <span class="pl-c1">1</span><span class="pl-k">:</span> <span class="pl-c1">301</span> <span class="pl-smi">observations</span>
+  <span class="pl-smi">predicted</span> <span class="pl-v">class</span><span class="pl-k">=</span><span class="pl-smi">N</span>  <span class="pl-smi">expected</span> <span class="pl-v">loss</span><span class="pl-k">=</span><span class="pl-c1">0.4551495</span>  P(<span class="pl-smi">node</span>) <span class="pl-k">=</span><span class="pl-c1">1</span>
+    <span class="pl-smi">class</span> <span class="pl-smi">counts</span><span class="pl-k">:</span>   <span class="pl-c1">164</span>   <span class="pl-c1">137</span>
+   <span class="pl-smi">probabilities</span><span class="pl-k">:</span> <span class="pl-c1">0.545</span> <span class="pl-c1">0.455</span> 
+
+<span class="pl-smi">Node</span> <span class="pl-smi">number</span> <span class="pl-c1">1</span><span class="pl-k">:</span> <span class="pl-c1">152</span> <span class="pl-smi">observations</span>,    <span class="pl-smi">complexity</span> <span class="pl-v">param</span><span class="pl-k">=</span><span class="pl-c1">1</span>
+  <span class="pl-smi">predicted</span> <span class="pl-v">class</span><span class="pl-k">=</span><span class="pl-smi">Y</span>  <span class="pl-smi">expected</span> <span class="pl-v">loss</span><span class="pl-k">=</span><span class="pl-c1">0.3223684</span>  P(<span class="pl-smi">node</span>) <span class="pl-k">=</span><span class="pl-c1">1</span>
+    <span class="pl-smi">class</span> <span class="pl-smi">counts</span><span class="pl-k">:</span>    <span class="pl-c1">49</span>   <span class="pl-c1">103</span>
+   <span class="pl-smi">probabilities</span><span class="pl-k">:</span> <span class="pl-c1">0.322</span> <span class="pl-c1">0.678</span> </pre></div>
+
+<p><img src="https://raw.githubusercontent.com/jennsoto/wells_fargo_analytics/0c1e1a57e68434d3f06d16b7808de094ec7a0e41/images/classification%20tree.png" alt="classification_tree"></p>
+
+<p>According to the classification tree results, positive statements within a .5 relevancy are "thanks," "very," "service," "support," "love," and "thank." With more work on the csv's files, we could utilize this method to obtain only the positive or negative comments.
+Out of the 301 comments in the pos.txt csv file, 137 were actual positive comments towards one of the banks. We found 152 observations in the neg.texts csv file, 103 of those were negative comments about one of the banks.</p>
       </section>
     </div>
 
