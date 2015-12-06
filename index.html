@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Wells Fargo Analytics : ">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <title>Wells Fargo Analytics</title>
+    <title>Wells Fargo Analytics: by jennsoto</title>
   </head>
 
   <body>
+    <header>
+      <div class="inner">
+        <h1>Wells Fargo Analytics:</h1>
+        <h2>A Social Media Response</h2>
+        <a href="https://github.com/jennsoto/wells_fargo_analytics" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/jennsoto/wells_fargo_analytics">View on GitHub</a>
-
-          <h1 id="project_title">Wells Fargo Analytics</h1>
-          <h2 id="project_tagline"></h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/jennsoto/wells_fargo_analytics/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/jennsoto/wells_fargo_analytics/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
 <a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>About</strong>
 </h1>
 
@@ -44,6 +41,8 @@
 <p>Dialogues on social media can provide tremendous insight into the behaviors, desires, pains, and thoughts of consumers. We'd like your help in developing a repeatable process that identifies, classifies, and extracts the underlying drivers of consumer financial conversations and comments in social media data. </p>
 
 <p>Provide an analytic report of 1,500 words or less that is structured as outlined below, utilizing the dataset.txt provided by Wells Fargo.</p>
+
+<p><img src="https://raw.githubusercontent.com/jennsoto/wells_fargo_analytics/050e56f82eea7358e059f53b815887b4d0e31bc9/images/social_media_freak.jpg" alt="social_media"></p>
 
 <h4>
 <a id="question-1---what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" class="anchor" href="#question-1---what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Question 1</strong> - What financial topics do consumers discuss on social media and what caused the consumers to post about this topic?</h4>
@@ -268,28 +267,24 @@ printcp(<span class="pl-smi">fit</span>) <span class="pl-c"># display the result
 plotcp(<span class="pl-smi">fit</span>) <span class="pl-c"># visualize cross-validation results </span>
 summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary of splits</span>
 
-<span class="pl-c">########### Clustering approach</span>
-<span class="pl-v">dtm</span> <span class="pl-k">=</span> DocumentTermMatrix(<span class="pl-smi">docs</span>)
-<span class="pl-v">dtm</span> <span class="pl-k">=</span> removeSparseTerms(<span class="pl-smi">dtm</span>, <span class="pl-c1">0.98</span>)
-<span class="pl-v">bag.of.words</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">dtm</span>)
-<span class="pl-smi">dtm</span>
+<span class="pl-c">## Cluster Dendrogram</span>
+<span class="pl-c"># Useless words</span>
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>,c(<span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>and<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>for<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>this<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>are<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>from<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>just<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>get<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ret_twit<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>name_resp<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>twit_hndl<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>twit_handl:<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>twit_hndl_banka<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>ly/<span class="pl-pds">"</span></span>)) 
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>, stopwords(<span class="pl-s"><span class="pl-pds">"</span>english<span class="pl-pds">"</span></span>))
+<span class="pl-smi">docs</span> <span class="pl-k">&lt;-</span> tm_map(<span class="pl-smi">docs</span>, <span class="pl-smi">removeWords</span>, stopwords(<span class="pl-v">kind</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>SMART<span class="pl-pds">"</span></span>))
 
-<span class="pl-v">hc</span> <span class="pl-k">=</span> hclust(dist(<span class="pl-smi">bag.of.words</span>))
-<span class="pl-v">hcd</span> <span class="pl-k">=</span> as.dendrogram(<span class="pl-smi">hc</span>)
-<span class="pl-v">g246</span> <span class="pl-k">=</span> cutree(<span class="pl-smi">hc</span>, <span class="pl-v">k</span><span class="pl-k">=</span>c(<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">6</span>,<span class="pl-c1">20</span>))
-<span class="pl-v">group.idxs</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
-<span class="pl-v">n.groups</span> <span class="pl-k">=</span> <span class="pl-c1">20</span>
-<span class="pl-v">dtms</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
-<span class="pl-v">dtms.matrcies</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
-<span class="pl-k">for</span> (<span class="pl-smi">i</span> <span class="pl-k">in</span> <span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-smi">n.groups</span>) {
-  <span class="pl-smi">group.idxs</span>[[<span class="pl-smi">i</span>]] <span class="pl-k">=</span> which(<span class="pl-smi">g246</span>[,<span class="pl-s"><span class="pl-pds">"</span>20<span class="pl-pds">"</span></span>]<span class="pl-k">==</span><span class="pl-smi">i</span>)
-  <span class="pl-smi">dtms</span>[[<span class="pl-smi">i</span>]] <span class="pl-k">=</span> DocumentTermMatrix(<span class="pl-smi">docs</span>[<span class="pl-smi">group.idxs</span>[[<span class="pl-smi">i</span>]]])
-  <span class="pl-v">dtm.matrix</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">dtms</span>[[<span class="pl-smi">i</span>]])
-  print(paste0(<span class="pl-s"><span class="pl-pds">'</span>Group,i<span class="pl-pds">'</span></span>))
-  <span class="pl-v">frequency</span> <span class="pl-k">=</span> colSums(<span class="pl-smi">dtm.matrix</span>)
-  <span class="pl-v">frequency</span> <span class="pl-k">=</span> sort(<span class="pl-smi">frequency</span>, <span class="pl-v">decreasing</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
-  print(head(<span class="pl-smi">frequency</span>))
-}
+<span class="pl-smi">dtm</span> <span class="pl-k">&lt;-</span> DocumentTermMatrix(<span class="pl-smi">docs</span>)
+<span class="pl-smi">tdm</span> <span class="pl-k">&lt;-</span> TermDocumentMatrix(<span class="pl-smi">docs</span>)
+
+<span class="pl-c"># remove sparse terms</span>
+<span class="pl-smi">tdm2</span> <span class="pl-k">&lt;-</span> removeSparseTerms(<span class="pl-smi">tdm</span>, <span class="pl-v">sparse</span> <span class="pl-k">=</span> <span class="pl-c1">0.97</span>)
+<span class="pl-smi">m2</span> <span class="pl-k">&lt;-</span> as.matrix(<span class="pl-smi">tdm2</span>)
+<span class="pl-c"># cluster terms</span>
+<span class="pl-smi">distMatrix</span> <span class="pl-k">&lt;-</span> dist(scale(<span class="pl-smi">m2</span>))
+<span class="pl-smi">fit</span> <span class="pl-k">&lt;-</span> hclust(<span class="pl-smi">distMatrix</span>, <span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>ward.D<span class="pl-pds">"</span></span>)
+
+plot(<span class="pl-smi">fit</span>)
+rect.hclust(<span class="pl-smi">fit</span>, <span class="pl-v">k</span> <span class="pl-k">=</span> <span class="pl-c1">6</span>)
 
 <span class="pl-c">##############</span></pre></div>
 
@@ -323,7 +318,7 @@ summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary o
 <p>In general, the topics and substance are consistent across the banking industry.</p>
 
 <h3>
-<a id="deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" class="anchor" href="#deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable E</strong> - Create a narrative of insights supported by the quantitative results (should include graphs or charts).</h3>
+<a id="deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results" class="anchor" href="#deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable E</strong> - Create a narrative of insights supported by the quantitative results.</h3>
 
 <h4>
 <a id="100-most-frequent-words" class="anchor" href="#100-most-frequent-words" aria-hidden="true"><span class="octicon octicon-link"></span></a>100 Most Frequent Words</h4>
@@ -333,6 +328,8 @@ summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary o
 <p><img src="https://raw.githubusercontent.com/jennsoto/wells_fargo_analytics/9822cf99ffd31429dd0d548032f050b109db6c83/images/plot100.png" alt="plot_100"></p>
 
 <p>The most frequent words obtained served as a guide to understand what subjects customers are talking about. According to our results, customers are commenting about online services, phone calls, customer service, and bank accounts. </p>
+
+<p><img src="https://raw.githubusercontent.com/jennsoto/wells_fargo_analytics/050e56f82eea7358e059f53b815887b4d0e31bc9/images/mobile-banking.jpg" alt="banking"></p>
 
 <h4>
 <a id="classification-tree" class="anchor" href="#classification-tree" aria-hidden="true"><span class="octicon octicon-link"></span></a>Classification Tree</h4>
@@ -352,18 +349,37 @@ summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary o
 
 <p>According to the classification tree results, positive statements within a .5 relevancy are "thanks," "very," "service," "support," "love," and "thank." With more work on the csv's files, we could utilize this method to obtain only the positive or negative comments.
 Out of the 301 comments in the pos.txt csv file, 137 were actual positive comments towards one of the banks. We found 152 observations in the neg.texts csv file, 103 of those were negative comments about one of the banks.</p>
-      </section>
+
+<h4>
+<a id="cluster-dendrogram" class="anchor" href="#cluster-dendrogram" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cluster Dendrogram</h4>
+
+<p><img src="https://raw.githubusercontent.com/jennsoto/wells_fargo_analytics/cad45dbc9a8d54d0bf8062e8591d4dae1c930de0/images/cluster%20dendogram.png" alt="cluster_dendrogram"></p>
+
+<p>With a cluster dendrogram we can get close to predicting how words relate to each other, and how often. In the example above, we could predict that "banka", "bankb," and "bankd" are the most mentioned on the internet. Another prediction from this dendrogram shows people commenting about business bank accounts, and "banka" mentioned on twitter. </p>
+
+<h1>
+<a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h1>
+
+<p>In conclusion, we can using classification to determine the relevancy of the observations to obtain a more accurate data. After identifying which comments were relevant we noticed that the classifier works better with negative comments. According to the probabilities of relevance, approximately half of the data set contains comments related to banking. Finally, we can say that a sample of the American population utilize social media for a banking conversation, if they want to express gratitude, and/or to complain about the customer service.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/jennsoto/wells_fargo_analytics/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/jennsoto/wells_fargo_analytics/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/jennsoto/wells_fargo_analytics"></a> is maintained by <a href="https://github.com/jennsoto">jennsoto</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Wells Fargo Analytics maintained by <a href="https://github.com/jennsoto">jennsoto</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
+  
   </body>
 </html>
