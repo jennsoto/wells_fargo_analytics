@@ -270,29 +270,6 @@ printcp(<span class="pl-smi">fit</span>) <span class="pl-c"># display the result
 plotcp(<span class="pl-smi">fit</span>) <span class="pl-c"># visualize cross-validation results </span>
 summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary of splits</span>
 
-<span class="pl-c">########### Clustering approach</span>
-<span class="pl-v">dtm</span> <span class="pl-k">=</span> DocumentTermMatrix(<span class="pl-smi">docs</span>)
-<span class="pl-v">dtm</span> <span class="pl-k">=</span> removeSparseTerms(<span class="pl-smi">dtm</span>, <span class="pl-c1">0.98</span>)
-<span class="pl-v">bag.of.words</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">dtm</span>)
-<span class="pl-smi">dtm</span>
-
-<span class="pl-v">hc</span> <span class="pl-k">=</span> hclust(dist(<span class="pl-smi">bag.of.words</span>))
-<span class="pl-v">hcd</span> <span class="pl-k">=</span> as.dendrogram(<span class="pl-smi">hc</span>)
-<span class="pl-v">g246</span> <span class="pl-k">=</span> cutree(<span class="pl-smi">hc</span>, <span class="pl-v">k</span><span class="pl-k">=</span>c(<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">6</span>,<span class="pl-c1">20</span>))
-<span class="pl-v">group.idxs</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
-<span class="pl-v">n.groups</span> <span class="pl-k">=</span> <span class="pl-c1">20</span>
-<span class="pl-v">dtms</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
-<span class="pl-v">dtms.matrcies</span> <span class="pl-k">=</span> <span class="pl-k">list</span>()
-<span class="pl-k">for</span> (<span class="pl-smi">i</span> <span class="pl-k">in</span> <span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-smi">n.groups</span>) {
-  <span class="pl-smi">group.idxs</span>[[<span class="pl-smi">i</span>]] <span class="pl-k">=</span> which(<span class="pl-smi">g246</span>[,<span class="pl-s"><span class="pl-pds">"</span>20<span class="pl-pds">"</span></span>]<span class="pl-k">==</span><span class="pl-smi">i</span>)
-  <span class="pl-smi">dtms</span>[[<span class="pl-smi">i</span>]] <span class="pl-k">=</span> DocumentTermMatrix(<span class="pl-smi">docs</span>[<span class="pl-smi">group.idxs</span>[[<span class="pl-smi">i</span>]]])
-  <span class="pl-v">dtm.matrix</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">dtms</span>[[<span class="pl-smi">i</span>]])
-  print(paste0(<span class="pl-s"><span class="pl-pds">'</span>Group,i<span class="pl-pds">'</span></span>))
-  <span class="pl-v">frequency</span> <span class="pl-k">=</span> colSums(<span class="pl-smi">dtm.matrix</span>)
-  <span class="pl-v">frequency</span> <span class="pl-k">=</span> sort(<span class="pl-smi">frequency</span>, <span class="pl-v">decreasing</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
-  print(head(<span class="pl-smi">frequency</span>))
-}
-
 <span class="pl-c">##############</span></pre></div>
 
 <h4>
