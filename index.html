@@ -48,8 +48,8 @@
 <h4>
 <a id="question-1---what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" class="anchor" href="#question-1---what-financial-topics-do-consumers-discuss-on-social-media-and-what-caused-the-consumers-to-post-about-this-topic" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Question 1</strong> - What financial topics do consumers discuss on social media and what caused the consumers to post about this topic?</h4>
 
-<h2>
-<a id="deliverable-a---describe-your-approach-and-methodology" class="anchor" href="#deliverable-a---describe-your-approach-and-methodology" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable A</strong> - Describe your Approach and Methodology.</h2>
+<h3>
+<a id="deliverable-a---describe-your-approach-and-methodology" class="anchor" href="#deliverable-a---describe-your-approach-and-methodology" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable A</strong> - Describe your Approach and Methodology.</h3>
 
 <h3>
 <a id="preparing-the-data" class="anchor" href="#preparing-the-data" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Preparing the data</strong>
@@ -63,13 +63,13 @@
 
 <p><img src="https://raw.githubusercontent.com/jennsoto/wells_fargo_analytics/d37e7cb42a5749583d23ad164b0b4f3a91fe95cd/images/flow%20chart.png" alt="Flow Chart"></p>
 
-<h2>
-<a id="deliverable-b---discuss-the-data-and-its-relationship-to-social-conversation-drivers" class="anchor" href="#deliverable-b---discuss-the-data-and-its-relationship-to-social-conversation-drivers" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable B</strong> - Discuss the data and its relationship to social conversation drivers.</h2>
+<h3>
+<a id="deliverable-b---discuss-the-data-and-its-relationship-to-social-conversation-drivers" class="anchor" href="#deliverable-b---discuss-the-data-and-its-relationship-to-social-conversation-drivers" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable B</strong> - Discuss the data and its relationship to social conversation drivers.</h3>
 
 <p>To find the social conversation drivers, indexed the data. After analysing the positive and negative comments we recognized conversation drivers like atm fee, customer service, Wells Fargo donation accounts, and account issues. The data provides an idea of how many banking conversations can be considered as social drivers. </p>
 
-<h2>
-<a id="deliverable-c---document-your-code-and-reference-the-analytic-process-flow-diagram-from-deliverable-a" class="anchor" href="#deliverable-c---document-your-code-and-reference-the-analytic-process-flow-diagram-from-deliverable-a" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable C</strong> - Document your code and reference the analytic process flow-diagram from deliverable A.</h2>
+<h3>
+<a id="deliverable-c---document-your-code-and-reference-the-analytic-process-flow-diagram-from-deliverable-a" class="anchor" href="#deliverable-c---document-your-code-and-reference-the-analytic-process-flow-diagram-from-deliverable-a" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable C</strong> - Document your code and reference the analytic process flow-diagram from deliverable A.</h3>
 
 <h4>
 <a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h4>
@@ -83,7 +83,8 @@ load(<span class="pl-s"><span class="pl-pds">"</span>/Users/Jenn/Desktop/Analyti
 colnames(<span class="pl-smi">df.texts</span>) <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>FullText<span class="pl-pds">'</span></span>
 
 <span class="pl-c"># Remove non-ascii characters</span>
-<span class="pl-v">df.texts.clean</span> <span class="pl-k">=</span> as.data.frame(iconv(<span class="pl-smi">df.texts</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>, <span class="pl-s"><span class="pl-pds">"</span>latin1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ASCII<span class="pl-pds">"</span></span>, <span class="pl-v">sub</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>))
+<span class="pl-v">df.texts.clean</span> <span class="pl-k">=</span> as.data.frame(iconv(<span class="pl-smi">df.texts</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>, <span class="pl-s"><span class="pl-pds">"</span>latin1<span class="pl-pds">"</span></span>, 
+                                     <span class="pl-s"><span class="pl-pds">"</span>ASCII<span class="pl-pds">"</span></span>, <span class="pl-v">sub</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>))
 colnames(<span class="pl-smi">df.texts.clean</span>) <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>FullText<span class="pl-pds">'</span></span>
 
 <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-v">FullText</span> <span class="pl-k">=</span> <span class="pl-smi">df.texts.clean</span><span class="pl-k">$</span><span class="pl-smi">FullText</span>
@@ -235,9 +236,11 @@ colnames(<span class="pl-smi">pos.texts</span>)
 
 <span class="pl-c"># Grow a tree</span>
 library(<span class="pl-smi">rpart</span>)
-<span class="pl-smi">fit</span> <span class="pl-k">&lt;-</span> rpart(<span class="pl-smi">Relevant</span> <span class="pl-k">~</span>., <span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">df.classification</span>)
-library(<span class="pl-smi">rpart.plot</span>)         
-prp(<span class="pl-smi">fit</span>)
+<span class="pl-smi">fit</span><span class="pl-k">&lt;-</span>rpart(<span class="pl-smi">Relevant</span> <span class="pl-k">~</span> <span class="pl-smi">X</span> <span class="pl-k">+</span> <span class="pl-smi">AutoID</span> <span class="pl-k">+</span> <span class="pl-smi">Date</span> <span class="pl-k">+</span> <span class="pl-smi">Year</span> <span class="pl-k">+</span> <span class="pl-smi">Month</span> <span class="pl-k">+</span> <span class="pl-smi">MediaType</span> <span class="pl-k">+</span> <span class="pl-smi">FullText</span>  
+           <span class="pl-k">+</span> <span class="pl-smi">BankID</span>, <span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">pos.texts</span>, <span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>)
+printcp(<span class="pl-smi">fit</span>) <span class="pl-c"># display the results </span>
+plotcp(<span class="pl-smi">fit</span>) <span class="pl-c"># visualize cross-validation results </span>
+summary(<span class="pl-smi">fit</span>) <span class="pl-c"># detailed summary of splits</span>
 
 <span class="pl-c">########### Clustering approach</span>
 <span class="pl-v">dtm</span> <span class="pl-k">=</span> DocumentTermMatrix(<span class="pl-smi">docs</span>)
@@ -265,8 +268,8 @@ prp(<span class="pl-smi">fit</span>)
 <h4>
 <a id="question-2---are-the-topics-and-substance-consistent-across-the-industry-or-are-they-isolated-to-individual-banks" class="anchor" href="#question-2---are-the-topics-and-substance-consistent-across-the-industry-or-are-they-isolated-to-individual-banks" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Question #2</strong> - Are the topics and “substance” consistent across the industry or are they isolated to individual banks?</h4>
 
-<h2>
-<a id="deliverable-d----create-a-list-of-topics-and-substance-you-found" class="anchor" href="#deliverable-d----create-a-list-of-topics-and-substance-you-found" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable D</strong> -  Create a list of topics and substance you found.</h2>
+<h3>
+<a id="deliverable-d----create-a-list-of-topics-and-substance-you-found" class="anchor" href="#deliverable-d----create-a-list-of-topics-and-substance-you-found" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable D</strong> -  Create a list of topics and substance you found.</h3>
 
 <h4>
 <a id="topics" class="anchor" href="#topics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Topics:</h4>
@@ -289,10 +292,12 @@ prp(<span class="pl-smi">fit</span>)
 <li>Customer Attrition — Likes customer service/dislikes customer service</li>
 </ul>
 
-<h2>
-<a id="deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" class="anchor" href="#deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable E</strong> - Create a narrative of insights supported by the quantitative results (should include graphs or charts).</h2>
+<h3>
+<a id="deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" class="anchor" href="#deliverable-e---create-a-narrative-of-insights-supported-by-the-quantitative-results-should-include-graphs-or-charts" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Deliverable E</strong> - Create a narrative of insights supported by the quantitative results (should include graphs or charts).</h3>
 
-<p>According to the classification tree results, when banks are acknowledge for their service they receive positive statements within a .5 relevancy. </p>
+<p>The most frequent words obtained served as a guide to understand what subjects customers are talking about. According to our results, customers are commenting about online services, phone calls, customer service, and bank accounts. </p>
+
+<p>According to the classification tree results, positive statements within a .5 relevancy are "thanks," "very," "service," "support," "love," and "thank." With more work on the csv's files, we could utilize this method to obtain only the positive or negative comments.</p>
       </section>
     </div>
 
